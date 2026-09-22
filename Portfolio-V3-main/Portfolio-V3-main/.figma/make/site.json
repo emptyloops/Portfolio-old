@@ -1,0 +1,10 @@
+{
+  "description": "Showcase your multimedia design skills with a modern, single-page portfolio featuring an animated header and dual scrolling sections for personal and project highlights.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
