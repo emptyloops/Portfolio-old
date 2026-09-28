@@ -1,6 +1,5 @@
 // Named imports only — keeps lucide tree-shakeable.
 import {
-  ArrowUpRight,
   BookOpen,
   Camera,
   CodeXml,
@@ -11,7 +10,6 @@ import {
   Heart,
   Layers,
   LayoutGrid,
-  Link,
   Mail,
   MapPin,
   MessageCircle,
@@ -20,21 +18,15 @@ import {
   PenTool,
   School,
   Sparkles,
-  User,
   Zap,
 } from 'lucide-react'
 
 export const ICONS = {
-  about: User,
   education: GraduationCap,
   skills: Sparkles,
   interests: Heart,
-  works: LayoutGrid,
-  contact: Mail,
   mail: Mail,
-  linkedin: Link,
   location: MapPin,
-  arrow: ArrowUpRight,
   school: School,
   zap: Zap,
   message: MessageCircle,
@@ -43,6 +35,7 @@ export const ICONS = {
   grid: LayoutGrid,
   pen: PenTool,
   code: CodeXml,
+  // Options for interests — swap freely in data/content.ts
   compass: Compass,
   music: Music,
   camera: Camera,

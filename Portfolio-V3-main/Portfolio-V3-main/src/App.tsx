@@ -1,17 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ICONS, ICON_SIZE, ICON_STROKE, type IconKey } from './icons'
-import { initMotion, prefersReducedMotion, scrollToSection } from './lib/motion'
-import {
-  contact,
-  education,
-  footer,
-  hero,
-  interests,
-  profile,
-  projects,
-  skills,
-  socials,
-} from './data/content'
+import { initMotion, prefersReducedMotion } from './lib/motion'
+import { education, hero, interests, profile, skills } from './data/content'
 
 // ─── ICON ──────────────────────────────────────────────────────────────────
 
@@ -304,20 +294,6 @@ function GroupHeading({ text, icon, small }: { text: string; icon: string; small
   )
 }
 
-// ─── NAV ───────────────────────────────────────────────────────────────────
-
-function IslandNav() {
-  return (
-    <nav className="island-nav">
-      <button className="island-btn" onClick={() => scrollToSection('about')}>About</button>
-      <div className="island-dot" aria-hidden="true" />
-      <button className="island-btn" onClick={() => scrollToSection('works')}>Works</button>
-      <div className="island-dot" aria-hidden="true" />
-      <button className="island-btn" onClick={() => scrollToSection('contact')}>Contact</button>
-    </nav>
-  )
-}
-
 // ─── APP ───────────────────────────────────────────────────────────────────
 
 const asset = (p: string) => `${import.meta.env.BASE_URL}${p}`
@@ -334,7 +310,6 @@ export default function App() {
   return (
     <>
       <CustomCursor />
-      <IslandNav />
 
       <div className="page" ref={rootRef}>
 
@@ -472,109 +447,9 @@ export default function App() {
               </div>
 
             </div>
-
-            <Divider />
-            <div className="social-row" data-animate="stagger">
-              {socials.map(s => (
-                <a
-                  key={s.label}
-                  className="social-link"
-                  href={s.href}
-                  target={s.href.startsWith('http') ? '_blank' : undefined}
-                  rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                >
-                  <Icon name={s.icon} size={14} />
-                  {s.label}
-                </a>
-              ))}
-            </div>
-          </section>
-
-          {/* ── WORKS: full width, below About ────────────────────────── */}
-          <section id="works" className="works-panel">
-            <h2 className="works-heading">
-              <span className="section-header-icon"><Icon name="works" size={18} /></span>
-              <span data-split>Selected work.</span>
-            </h2>
-            <div className="works-bento" data-animate="stagger">
-              {projects.map(p => (
-                <div key={p.id} className={`work-card ${p.areaClass}`}>
-                  {p.image ? (
-                    <img
-                      className="work-image"
-                      src={asset(p.image)}
-                      alt={p.title}
-                      width={640}
-                      height={420}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div className="work-placeholder">
-                      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-                        <rect x="2" y="7" width="32" height="22" rx="3" stroke="#f0f0f0" strokeWidth="1.5" opacity="0.2"/>
-                        <circle cx="11" cy="15" r="3" stroke="#f0f0f0" strokeWidth="1.5" opacity="0.2"/>
-                        <path d="M2 25l9-8 6 6 4-4 8 7" stroke="#f0f0f0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.2"/>
-                      </svg>
-                      <span className="work-placeholder-label">IMAGE PLACEHOLDER</span>
-                    </div>
-                  )}
-                  <div className="work-hover-overlay">
-                    <p className="work-title">{p.title}</p>
-                    <p className="work-desc">{p.desc}</p>
-                    <span className="work-category">{p.category.toUpperCase()}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
           </section>
 
         </div>
-
-        {/* ══ CONTACT ════════════════════════════════════════════════════ */}
-        <section id="contact" className="contact-section">
-          <div className="contact-inner">
-            <p className="contact-eyebrow">
-              <Icon name="contact" size={13} />
-              {contact.eyebrow}
-            </p>
-
-            <h2 className="contact-heading" data-split>{contact.heading}</h2>
-
-            <p className="contact-email-wrap" data-animate="fade-up">
-              <a className="contact-email-link" href={`mailto:${profile.email}`}>{profile.email}</a>
-            </p>
-            <p className="contact-sub" data-animate="fade-up">
-              {profile.name} / {profile.title} — {profile.location}
-            </p>
-
-            <div data-animate="fade-up">
-              <a className="btn-pill-outline" href={contact.cta.href} target="_blank" rel="noopener noreferrer">
-                <Icon name="linkedin" size={15} />
-                {contact.cta.label}
-                <Icon name="arrow" size={15} />
-              </a>
-            </div>
-          </div>
-
-          <div className="footer-bar">
-            <span className="footer-copy">{footer.copyright}</span>
-            <div className="footer-links">
-              {socials.map(s => (
-                <a
-                  key={s.label}
-                  className="footer-link"
-                  href={s.href}
-                  target={s.href.startsWith('http') ? '_blank' : undefined}
-                  rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                >
-                  <Icon name={s.icon} size={13} />
-                  {s.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
 
       </div>
     </>

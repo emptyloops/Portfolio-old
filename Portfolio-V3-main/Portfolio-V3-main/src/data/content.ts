@@ -93,28 +93,3 @@ export const interests = [
   { label: 'TODO: add interest', desc: 'TODO: one short line about it.', icon: 'game' },
 ]
 
-export const socials = [
-  { label: 'Email', href: `mailto:${profile.email}`, icon: 'mail' },
-  { label: 'LinkedIn', href: profile.linkedin, icon: 'linkedin' },
-]
-
-// TODO: add projects. Set `image` to a path in public/images/ (e.g. 'images/projects/foo.webp')
-// and the card swaps from the placeholder to the photo automatically.
-export const projects = [
-  { id: '01', areaClass: 'wc-p1', title: 'TODO: add project', category: 'TODO', desc: 'TODO: add project description.', image: '' },
-  { id: '02', areaClass: 'wc-p2', title: 'TODO: add project', category: 'TODO', desc: 'TODO: add project description.', image: '' },
-  { id: '03', areaClass: 'wc-p3', title: 'TODO: add project', category: 'TODO', desc: 'TODO: add project description.', image: '' },
-  { id: '04', areaClass: 'wc-p4', title: 'TODO: add project', category: 'TODO', desc: 'TODO: add project description.', image: '' },
-  { id: '05', areaClass: 'wc-p5', title: 'TODO: add project', category: 'TODO', desc: 'TODO: add project description.', image: '' },
-  { id: '06', areaClass: 'wc-p6', title: 'TODO: add project', category: 'TODO', desc: 'TODO: add project description.', image: '' },
-]
-
-export const contact = {
-  eyebrow: 'GET IN TOUCH',
-  heading: "Let's turn concepts into stunning work.",
-  cta: { label: 'Connect on LinkedIn', href: profile.linkedin },
-}
-
-export const footer = {
-  copyright: `© ${profile.name} ${new Date().getFullYear()} | All Rights Reserved`,
-}

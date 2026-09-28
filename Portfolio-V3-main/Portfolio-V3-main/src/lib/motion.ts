@@ -9,15 +9,6 @@ export const prefersReducedMotion = () =>
 
 let lenis: Lenis | null = null
 
-/** Scroll to an in-page target through Lenis so nav links never hard-jump. */
-export function scrollToSection(id: string) {
-  const target = document.getElementById(id)
-  if (!target) return
-  // Offset clears the fixed island nav so the heading isn't hidden behind it.
-  if (lenis) lenis.scrollTo(target, { offset: -76 })
-  else target.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
-}
-
 /** Wrap each word in a span so headings can stagger per word. */
 function splitWords(el: HTMLElement): HTMLElement[] {
   if (el.dataset.split === 'done') {
