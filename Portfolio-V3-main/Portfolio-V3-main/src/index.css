@@ -266,21 +266,49 @@ html.lenis body {
 
 /* ── Split layout ──────────────────────────────────── */
 
-.split {
-  display: grid;
-  grid-template-columns: 42% 1fr;
-  align-items: start;
+.stack {
   border-top: 1px solid var(--hair);
 }
 
-.left-panel {
-  padding: 52px 48px 80px;
-  border-right: 1px solid var(--hair);
+.about-panel {
+  padding: 56px 48px 72px;
   background: var(--bg);
 }
 
+/* Photo, bio and availability run across the full width. */
+.about-intro {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 48px;
+  align-items: center;
+}
+
+/* Columns stretch to equal height so the dividers between them run full depth. */
+.about-columns {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr;
+}
+
+.about-col {
+  padding: 0 40px;
+  min-width: 0;
+}
+
+.about-col:first-child {
+  padding-left: 0;
+}
+
+.about-col:last-child {
+  padding-right: 0;
+}
+
+.about-col + .about-col {
+  border-left: 1px solid var(--hair);
+}
+
 .works-panel {
-  padding: 52px 24px 80px;
+  padding: 56px 48px 80px;
+  border-top: 1px solid var(--hair);
   background: var(--bg);
 }
 
@@ -290,7 +318,6 @@ html.lenis body {
   display: flex;
   align-items: center;
   gap: 18px;
-  margin-bottom: 24px;
 }
 
 .profile-photo {
@@ -332,14 +359,15 @@ html.lenis body {
   font-weight: 300;
   line-height: 1.8;
   color: var(--muted-2);
-  margin: 0 0 24px;
+  margin: 0;
+  max-width: 62ch;
 }
 
 .about-actions {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
 }
 
 .availability {
@@ -572,14 +600,12 @@ html.lenis body {
 
 .works-bento {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 260px 260px 260px 320px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 300px 300px;
   grid-template-areas:
-    "p1 p2"
-    "p3 p2"
-    "p3 p4"
-    "p5 p6";
-  gap: 10px;
+    "p1 p1 p2 p3"
+    "p4 p5 p6 p6";
+  gap: 12px;
 }
 
 .wc-p1 { grid-area: p1; }
@@ -790,8 +816,43 @@ html.lenis body {
 /* ── Responsive ────────────────────────────────────── */
 
 @media (max-width: 1100px) {
+  /* Three text columns get too narrow here — bio on top, sections beneath. */
+  .about-intro {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 32px 40px;
+  }
+
+  .about-actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .about-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .about-col {
+    padding: 0;
+  }
+
+  .about-col + .about-col {
+    border-left: none;
+    border-top: 1px solid var(--hair);
+    margin-top: 40px;
+    padding-top: 40px;
+  }
+
   .works-bento {
-    grid-template-rows: 220px 220px 220px 280px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 240px);
+    grid-template-areas:
+      "p1 p1"
+      "p2 p3"
+      "p4 p5"
+      "p6 p6";
   }
 }
 
@@ -809,15 +870,14 @@ html.lenis body {
     white-space: normal;
   }
 
-  .split {
-    grid-template-columns: 1fr;
+  .about-panel {
+    /* top padding clears the fixed island nav */
+    padding: 84px 24px 56px;
   }
 
-  .left-panel {
-    border-right: none;
-    border-bottom: 1px solid var(--hair);
-    /* clears the fixed island nav */
-    padding: 84px 24px 56px;
+  .about-intro {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .works-panel {
@@ -843,7 +903,7 @@ html.lenis body {
 }
 
 @media (max-width: 480px) {
-  .left-panel {
+  .about-panel {
     padding: 84px 20px 48px;
   }
 

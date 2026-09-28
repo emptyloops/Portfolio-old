@@ -367,101 +367,110 @@ export default function App() {
           </div>
         </section>
 
-        {/* ══ SPLIT: About + Works ═══════════════════════════════════════ */}
-        <div className="split">
+        {/* ══ ABOUT (full width) then WORKS beneath ══════════════════════ */}
+        <div className="stack">
 
-          {/* ── LEFT: About ───────────────────────────────────────────── */}
-          <div id="about" className="left-panel">
-            <div className="profile-row" data-animate="fade-up">
-              <picture>
-                <source
-                  type="image/avif"
-                  srcSet={`${asset('images/profile-96.avif')} 1x, ${asset('images/profile-192.avif')} 2x, ${asset('images/profile-288.avif')} 3x`}
-                />
-                <source
-                  type="image/webp"
-                  srcSet={`${asset('images/profile-96.webp')} 1x, ${asset('images/profile-192.webp')} 2x, ${asset('images/profile-288.webp')} 3x`}
-                />
-                <img
-                  className="profile-photo"
-                  src={asset('images/profile-192.jpg')}
-                  alt={profile.photo.alt}
-                  width={photoW}
-                  height={photoW}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-              <div>
-                <p className="profile-name">{profile.name}</p>
-                <p className="profile-title">{profile.title}</p>
-                <p className="profile-location">
-                  <Icon name="location" size={13} />
-                  {profile.location}
-                </p>
+          <section id="about" className="about-panel">
+            {/* Intro runs side to side: photo, bio, availability */}
+            <div className="about-intro">
+              <div className="profile-row" data-animate="fade-up">
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcSet={`${asset('images/profile-96.avif')} 1x, ${asset('images/profile-192.avif')} 2x, ${asset('images/profile-288.avif')} 3x`}
+                  />
+                  <source
+                    type="image/webp"
+                    srcSet={`${asset('images/profile-96.webp')} 1x, ${asset('images/profile-192.webp')} 2x, ${asset('images/profile-288.webp')} 3x`}
+                  />
+                  <img
+                    className="profile-photo"
+                    src={asset('images/profile-192.jpg')}
+                    alt={profile.photo.alt}
+                    width={photoW}
+                    height={photoW}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+                <div>
+                  <p className="profile-name">{profile.name}</p>
+                  <p className="profile-title">{profile.title}</p>
+                  <p className="profile-location">
+                    <Icon name="location" size={13} />
+                    {profile.location}
+                  </p>
+                </div>
+              </div>
+
+              <p className="about-text" data-animate="fade-up">{profile.about}</p>
+
+              <div className="about-actions" data-animate="fade-up">
+                <span className="availability">
+                  <span className="availability-dot" aria-hidden="true" />
+                  {profile.availability}
+                </span>
+                <a className="btn-cta" href={`mailto:${profile.email}`}>
+                  <Icon name="mail" size={14} />
+                  Get in touch
+                </a>
               </div>
             </div>
 
-            <p className="about-text" data-animate="fade-up">{profile.about}</p>
-
-            <div className="about-actions" data-animate="fade-up">
-              <span className="availability">
-                <span className="availability-dot" aria-hidden="true" />
-                {profile.availability}
-              </span>
-              <a className="btn-cta" href={`mailto:${profile.email}`}>
-                <Icon name="mail" size={14} />
-                Get in touch
-              </a>
-            </div>
-
-            {/* 1. Education */}
             <Divider />
-            <SectionHeader text="Education." icon="education" />
-            <div data-animate="stagger">
-              {education.map((e, i) => (
-                <div className="edu-row" key={e.degree + e.school} style={{ borderTop: i === 0 ? '1px solid rgba(240,240,240,0.07)' : undefined }}>
-                  <span className="edu-icon"><Icon name={e.icon} size={15} /></span>
-                  <div className="edu-body">
-                    <div className="edu-line">
-                      <p className="edu-degree">{e.degree}</p>
-                      <span className="edu-dates">{e.dates}</span>
+
+            {/* Education / Skills / Interests sit as columns in one row */}
+            <div className="about-columns">
+
+              <div className="about-col">
+                <SectionHeader text="Education." icon="education" />
+                <div data-animate="stagger">
+                  {education.map((e, i) => (
+                    <div className="edu-row" key={e.degree + e.school} style={{ borderTop: i === 0 ? '1px solid rgba(240,240,240,0.07)' : undefined }}>
+                      <span className="edu-icon"><Icon name={e.icon} size={15} /></span>
+                      <div className="edu-body">
+                        <div className="edu-line">
+                          <p className="edu-degree">{e.degree}</p>
+                          <span className="edu-dates">{e.dates}</span>
+                        </div>
+                        <p className="edu-school">{e.school}</p>
+                      </div>
                     </div>
-                    <p className="edu-school">{e.school}</p>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
 
-            {/* 2. Skills */}
-            <Divider />
-            <SectionHeader text="Skills." icon="skills" />
-            {skills.map((g, gi) => (
-              <div className="skill-group" key={g.title} style={{ borderTop: gi === 0 ? 'none' : undefined }}>
-                <GroupHeading text={g.title.toUpperCase()} icon={g.icon} />
-                {g.items && <Pills items={g.items} />}
-                {g.subgroups?.map(sub => (
-                  <div className="skill-subgroup" key={sub.title}>
-                    <GroupHeading text={sub.title.toUpperCase()} icon={sub.icon} small />
-                    <Pills items={sub.items} />
+              <div className="about-col about-col-wide">
+                <SectionHeader text="Skills." icon="skills" />
+                {skills.map((g, gi) => (
+                  <div className="skill-group" key={g.title} style={{ borderTop: gi === 0 ? 'none' : undefined }}>
+                    <GroupHeading text={g.title.toUpperCase()} icon={g.icon} />
+                    {g.items && <Pills items={g.items} />}
+                    {g.subgroups?.map(sub => (
+                      <div className="skill-subgroup" key={sub.title}>
+                        <GroupHeading text={sub.title.toUpperCase()} icon={sub.icon} small />
+                        <Pills items={sub.items} />
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
-            ))}
 
-            {/* 3. Interests */}
-            <Divider />
-            <SectionHeader text="Interests." icon="interests" />
-            <div data-animate="stagger">
-              {interests.map((it, i) => (
-                <div className="edu-row" key={it.label + i} style={{ borderTop: i === 0 ? '1px solid rgba(240,240,240,0.07)' : undefined }}>
-                  <span className="edu-icon"><Icon name={it.icon} size={15} /></span>
-                  <div className="edu-body">
-                    <p className="edu-degree">{it.label}</p>
-                    <p className="edu-school">{it.desc}</p>
-                  </div>
+              <div className="about-col">
+                <SectionHeader text="Interests." icon="interests" />
+                <div data-animate="stagger">
+                  {interests.map((it, i) => (
+                    <div className="edu-row" key={it.label + i} style={{ borderTop: i === 0 ? '1px solid rgba(240,240,240,0.07)' : undefined }}>
+                      <span className="edu-icon"><Icon name={it.icon} size={15} /></span>
+                      <div className="edu-body">
+                        <p className="edu-degree">{it.label}</p>
+                        <p className="edu-school">{it.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
             </div>
 
             <Divider />
@@ -479,10 +488,10 @@ export default function App() {
                 </a>
               ))}
             </div>
-          </div>
+          </section>
 
-          {/* ── RIGHT: Works ──────────────────────────────────────────── */}
-          <div id="works" className="works-panel">
+          {/* ── WORKS: full width, below About ────────────────────────── */}
+          <section id="works" className="works-panel">
             <h2 className="works-heading">
               <span className="section-header-icon"><Icon name="works" size={18} /></span>
               <span data-split>Selected work.</span>
@@ -518,7 +527,7 @@ export default function App() {
                 </div>
               ))}
             </div>
-          </div>
+          </section>
 
         </div>
 
